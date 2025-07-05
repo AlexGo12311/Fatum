@@ -11,7 +11,7 @@ final class MatchController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Match!"
-        navigationController?.navigationBar.prefersLargeTitles = true
+//        title = "Match!"
+//        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }
