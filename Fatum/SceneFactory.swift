@@ -22,7 +22,7 @@ struct SceneFactory {
         discoverCoordinator.start()
         
         let matchNavController = UINavigationController()
-        matchNavController.tabBarItem = UITabBarItem(title: "Match!", image: UIImage(systemName: "person.3"), tag: 2)
+        matchNavController.tabBarItem = UITabBarItem(title: "Match!", image: UIImage(systemName: "plus.circle.fill"), tag: 2)
         let matchCoordinator = MatchCoordinator(type: .match, navigationController: matchNavController, finishDelegate: finishDelegate)
         superCoordinator.addChildCoordinator(matchCoordinator)
         matchCoordinator.start()

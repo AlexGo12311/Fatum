@@ -11,6 +11,6 @@ final class MessagesController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Messages"
+        title = "Chats"
     }
 }
