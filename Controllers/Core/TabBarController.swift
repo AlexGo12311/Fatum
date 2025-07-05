@@ -17,7 +17,7 @@ final class TabBarController: UITabBarController, UITabBarControllerDelegate {
         super.init(nibName: nil, bundle: nil)
         controllers.forEach { self.addChild($0) }
         controllers.enumerated().forEach { (index,controller) in customTabBarLayer.addArrangedSubview(CTabBarItem(image: controller.tabBarItem.image ?? UIImage(systemName: "questionmark")!, ctag: index))
-            print("buttom added with index \(index)")
+            print("buttom added with index\(index)")
         }
     }
     
