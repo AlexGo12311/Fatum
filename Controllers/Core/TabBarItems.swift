@@ -20,7 +20,7 @@ class CTabBarItem: UIView {
     
     init(image: UIImage, ctag: Int) {
         super.init(frame: .zero)
-        self.ctag = tag
+        self.ctag = ctag
         self.image = image
 
     }
@@ -44,9 +44,9 @@ class CTabBarItem: UIView {
     
     private func changeColor() {
         if isActive {
-            icoImage.tintColor = AccentColors.selectedTabIcon.withAlphaComponent(0.5)
+            icoImage.tintColor = AccentColors.selectedTabIcon
         } else {
-            icoImage.tintColor = AccentColors.normalTabIcon
+            icoImage.tintColor = AccentColors.normalTabIcon.withAlphaComponent(0.5)
         }
     }
 }
