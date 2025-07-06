@@ -9,24 +9,9 @@ import UIKit
 
 final class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
-    init(controllers: [UINavigationController]) {
-        super.init(nibName: nil, bundle: nil)
-        controllers.forEach { self.addChild($0) }
-        controllers.enumerated().forEach { (index,controller) in customTabBarLayer.addArrangedSubview(CTabBarItem(image: controller.tabBarItem.image ?? UIImage(systemName: "questionmark")!, ctag: index))
-            print("buttom added with index\(index)")
-        }
-        selectedIndex = 2
-        
-        if let selectedBtn = customTabBarLayer.arrangedSubviews[selectedIndex] as? CTabBarItem {
-            selectedBtn.isActive = true
-        }
-        
-        tabBar.isHidden = true
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    private let selectedTabView = UIView()
+    private var widthConstraint = NSLayoutConstraint()
+    private var leadingConstraint = NSLayoutConstraint()
     
     private lazy var customTabBarLayer: UIStackView = {
         let stackView = UIStackView()
@@ -43,10 +28,42 @@ final class TabBarController: UITabBarController, UITabBarControllerDelegate {
         return stackView
     }()
     
+    init(controllers: [UINavigationController]) {
+        super.init(nibName: nil, bundle: nil)
+        controllers.forEach { self.addChild($0) }
+        controllers.enumerated().forEach { (index,controller) in customTabBarLayer.addArrangedSubview(CTabBarItem(image: controller.tabBarItem.image ?? UIImage(systemName: "questionmark")!, selectedImage: controller.tabBarItem.selectedImage ?? UIImage(systemName: "questionmark")!, ctag: index))
+            print("buttom added with index\(index)")
+        }
+        selectedIndex = 2
+        
+        if let selectedBtn = customTabBarLayer.arrangedSubviews[selectedIndex] as? CTabBarItem {
+            selectedBtn.isActive = true
+        }
+        
+        tabBar.isHidden = true
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLayoutSubviews() {
+        setupButtons()
+        self.selectedTabView.layer.cornerRadius = self.selectedTabView.frame.width / 2
+        super.viewDidLayoutSubviews()
+        print("customTabBarLayer frame: \(customTabBarLayer.frame)")
+        for (index, view) in customTabBarLayer.arrangedSubviews.enumerated() {
+            print("CTabBarItem \(index) frame: \(view.frame)")
+        }
+
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(customTabBarLayer)
         setupCustomTabBarLayer()
+        configureSelectedTabView()
+
     }
     
     @objc func tabPressed(_ sender: UITapGestureRecognizer) {
@@ -55,6 +72,16 @@ final class TabBarController: UITabBarController, UITabBarControllerDelegate {
             print("Failed to get CTabBarItem or ctag")
             return
         }
+        
+        leadingConstraint.isActive = false
+        leadingConstraint = selectedTabView.centerXAnchor.constraint(equalTo: senderView.centerXAnchor)
+        
+        leadingConstraint.isActive = true
+        
+        self.customTabBarLayer.layoutIfNeeded()
+
+
+        
         print("\(tabIndex) pressed, view frame: \(senderView.frame)")
         if tabIndex < viewControllers?.count ?? 0 && tabIndex != selectedIndex {
             if let lastBtn = customTabBarLayer.arrangedSubviews[selectedIndex] as? CTabBarItem {
@@ -65,29 +92,11 @@ final class TabBarController: UITabBarController, UITabBarControllerDelegate {
             print("Index \(tabIndex) changed!")
             if let imageView = senderView.subviews.first(where: { $0 is UIImageView }) as? UIImageView {
                 animate(imageView)
+                animate(selectedTabView)
             }
         }
     }
     
-    
-    override func viewDidLayoutSubviews() {
-        setupButtons()
-        super.viewDidLayoutSubviews()
-        print("customTabBarLayer frame: \(customTabBarLayer.frame)")
-        for (index, view) in customTabBarLayer.arrangedSubviews.enumerated() {
-            print("CTabBarItem \(index) frame: \(view.frame)")
-        }
-    }
-    
-    
-    func setupButtons() {
-        for button in customTabBarLayer.arrangedSubviews {
-            let tapGeasture = UITapGestureRecognizer(target: self, action: #selector(tabPressed(_:)))
-            button.addGestureRecognizer(tapGeasture)
-            button.isUserInteractionEnabled = true
-            print("Geasture recognizer added for \(button)")
-        }
-    }
     
     
     private func animate(_ imageView: UIImageView) {
@@ -104,7 +113,24 @@ final class TabBarController: UITabBarController, UITabBarControllerDelegate {
             })
         }
     }
+    
+    private func animate(_ view: UIView) {
+        UIView.animate(withDuration: 0.1, animations: {
+            view.transform = CGAffineTransform(scaleX: 1.2, y: 1.4)
+        }) { _ in
+            UIView.animate(withDuration: 0.2,
+                           delay: 0.0,
+                           usingSpringWithDamping: 0.3,
+                           initialSpringVelocity: 7.0,
+                           options: .curveEaseInOut,
+                           animations: {
+                view.transform = CGAffineTransform.identity
+            })
+        }
+    }
 }
+
+
 
 private extension TabBarController {
     func setupCustomTabBarLayer() {
@@ -117,6 +143,35 @@ private extension TabBarController {
             customTabBarLayer.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             customTabBarLayer.heightAnchor.constraint(equalToConstant: 64)
         ])
+    }
+    
+    func setupButtons() {
+        for button in customTabBarLayer.arrangedSubviews {
+            let tapGeasture = UITapGestureRecognizer(target: self, action: #selector(tabPressed(_:)))
+            button.addGestureRecognizer(tapGeasture)
+            button.isUserInteractionEnabled = true
+            print("Geasture recognizer added for \(button)")
+        }
+    }
+    
+    func configureSelectedTabView() {
+        customTabBarLayer.addSubview(selectedTabView)
+        selectedTabView.backgroundColor = AccentColors.selectedTabIcon
+        selectedTabView.translatesAutoresizingMaskIntoConstraints = false
+        
+        widthConstraint = selectedTabView.widthAnchor.constraint(equalToConstant: 38) //TODO: Решить вопрос с принудительным указанием высоты
+        leadingConstraint = selectedTabView.centerXAnchor.constraint(equalTo: customTabBarLayer.centerXAnchor)
+        widthConstraint.isActive = true
+        leadingConstraint.isActive = true
+        
+        NSLayoutConstraint.activate([
+            selectedTabView.topAnchor.constraint(equalTo: customTabBarLayer.topAnchor, constant: 12),
+            selectedTabView.bottomAnchor.constraint(equalTo: customTabBarLayer.bottomAnchor, constant: -12)
+        ])
+        
+//        selectedTabView.layer.cornerRadius = selectedTabView.frame.width / 2
+        selectedTabView.layer.masksToBounds = true
+        
     }
 }
 

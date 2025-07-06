@@ -16,12 +16,14 @@ class CTabBarItem: UIView {
     }
     
     var image = UIImage()
+    var selectedImage: UIImage?
     var ctag: Int?
     
-    init(image: UIImage, ctag: Int) {
+    init(image: UIImage, selectedImage: UIImage? = UIImage(), ctag: Int) {
         super.init(frame: .zero)
         self.ctag = ctag
         self.image = image
+        self.selectedImage = selectedImage
 
     }
     
@@ -44,9 +46,11 @@ class CTabBarItem: UIView {
     
     private func changeColor() {
         if isActive {
-            icoImage.tintColor = AccentColors.selectedTabIcon
+            icoImage.tintColor = AccentColors.mainWhite
+            icoImage.image = selectedImage
         } else {
             icoImage.tintColor = AccentColors.normalTabIcon.withAlphaComponent(0.5)
+            icoImage.image = image
         }
     }
 }
@@ -70,9 +74,9 @@ private extension CTabBarItem {
 
 
 
-#Preview("CTabBar", traits: .fixedLayout(width: 24, height: 24)) {
-    let button = CTabBarItem(image: UIImage(resource: .icon), ctag: 0)
-
-    return button
-}
+//#Preview("CTabBar", traits: .fixedLayout(width: 24, height: 24)) {
+//    let button = CTabBarItem(image: UIImage(resource: .icon), ctag: 0)
+//
+//    return button
+//}
             
