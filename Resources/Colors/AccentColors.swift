@@ -20,5 +20,8 @@ struct AccentColors {
     static let mainWhite = UIColor { traitCollection in return (traitCollection.userInterfaceStyle == .light ? UIColor(hex: "FFFFFF") : UIColor.black) ?? UIColor.systemBackground //TODO: Подобрать цвет для темной темы
     }
     
+    static let titleColor = UIColor { traitCollection in return (traitCollection.userInterfaceStyle == .light ? UIColor(hex: "4B164C") : UIColor.white) ?? UIColor.systemBackground
+    }
+    
 }
  

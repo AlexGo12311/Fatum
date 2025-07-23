@@ -49,6 +49,11 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		4DAAFCB42E30FD570009C895 /* Model */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +70,7 @@
 		4D6AA0932E17BD67001AD072 = {
 			isa = PBXGroup;
 			children = (
+				4DAAFCB42E30FD570009C895 /* Model */,
 				4D8F18882E1D5DCB00E48B82 /* Cells */,
 				4D6AA0EE2E17F531001AD072 /* Resources */,
 				4D6AA0BB2E17C956001AD072 /* Controllers */,
@@ -103,6 +109,7 @@
 				4D6AA0BB2E17C956001AD072 /* Controllers */,
 				4D6AA0EE2E17F531001AD072 /* Resources */,
 				4D8F18882E1D5DCB00E48B82 /* Cells */,
+				4DAAFCB42E30FD570009C895 /* Model */,
 			);
 			name = Fatum;
 			packageProductDependencies = (

@@ -2,6 +2,26 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>HellixTRIAL-Black.otf</string>
+		<string>HellixTRIAL-BlackItalic.otf</string>
+		<string>HellixTRIAL-Bold.otf</string>
+		<string>HellixTRIAL-BoldItalic.otf</string>
+		<string>HellixTRIAL-ExtraBold.otf</string>
+		<string>HellixTRIAL-ExtraBoldItalic.otf</string>
+		<string>HellixTRIAL-Light.otf</string>
+		<string>HellixTRIAL-LightItalic.otf</string>
+		<string>HellixTRIAL-Medium.otf</string>
+		<string>HellixTRIAL-MediumItalic.otf</string>
+		<string>HellixTRIAL-Regular.otf</string>
+		<string>HellixTRIAL-RegularItalic.otf</string>
+		<string>HellixTRIAL-SemiBold.otf</string>
+		<string>HellixTRIAL-SemiBoldItalic.otf</string>
+		<string>HellixTRIAL-Thin.otf</string>
+		<string>HellixTRIAL-ThinItalic.otf</string>
+		<string>HellixTRIALVF.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

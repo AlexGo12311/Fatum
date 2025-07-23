@@ -10,7 +10,7 @@ import UIKit
 struct SceneFactory {
     static func makeMainFlow(superCoordinator: CoordinatorProtocol, finishDelegate: CoordinatorFinishDelegate) -> TabBarController {
         let homeNavController = UINavigationController()
-        homeNavController.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
+        homeNavController.tabBarItem = UITabBarItem(title: "Fatum", image: UIImage(systemName: "house"), tag: 0)
         homeNavController.tabBarItem.selectedImage = UIImage(systemName: "house.fill")
         let homeCoordinator = HomeCoordinator(type: .home, navigationController: homeNavController, finishDelegate: finishDelegate)
         superCoordinator.addChildCoordinator(homeCoordinator)

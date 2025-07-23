@@ -10,6 +10,11 @@ import UIKit
 class StoriesCell: UITableViewCell {
     static let identifier = "StoriesCell"
     
+    var stories = [
+        Story(id: "0", image: UIImage(resource: ._0), isSeen: false),
+        Story(id: "1", image: UIImage(resource: ._1), isSeen: false),
+        Story(id: "2", image: UIImage(resource: ._3), isSeen: false)]
+    
     lazy var collection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -47,7 +52,7 @@ class StoriesCell: UITableViewCell {
 
 extension StoriesCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        stories.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -55,15 +60,40 @@ extension StoriesCell: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StoryCell.identifier, for: indexPath) as? StoryCell else { return UICollectionViewCell()}
-        cell.imageView = UIImageView(image: UIImage(resource: .home))
+        switch indexPath.item {
+        case 0:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StoryCell.identifier, for: indexPath) as? StoryCell else { return UICollectionViewCell()}
+            
+            
+            cell.imageView.image = stories[0].image
+            
+            return cell
+            
+        case 1:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StoryCell.identifier, for: indexPath) as? StoryCell else { return UICollectionViewCell()}
+            cell.imageView.image = stories[1].image
+            
+            return cell
+            
+        case 2:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StoryCell.identifier, for: indexPath) as? StoryCell else { return UICollectionViewCell()}
+            cell.imageView = UIImageView(image: UIImage(resource: .home))
+            
+            cell.imageView.image = stories[2].image
+            
+            return cell
+        default:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StoryCell.identifier, for: indexPath) as? StoryCell else { return UICollectionViewCell()}
+            
+            
+            return cell
+        }
         
-        return cell
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-//        return CGSize(width: 60, height: 60)
-//    }
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    //        return CGSize(width: 60, height: 60)
+    //    }
     
     
 }

@@ -19,8 +19,10 @@ final class HomeController: UIViewController {
         super.viewDidLoad()
         view.addSubview(homeFeedTable)
         setupHomeFeedTable()
-        title = "Home"
+        title = "Fatum"
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font: UIFont.DPHelix.Bold.size(of: 28), .foregroundColor: AccentColors.titleColor]
         view.backgroundColor = AccentColors.bgColor
     }
     
@@ -54,7 +56,7 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
-            return 90
+            return 100
         default:
             return tableView.estimatedRowHeight
         }
